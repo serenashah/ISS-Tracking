@@ -30,7 +30,7 @@ def epoch_info():
     epoch_list = {}
     for x in range(len(positional_data)):
         epoch_list['EPOCH'].append(positional_data['ndm']['oem']['body']['segment']['data']['stateVector'][x]['EPOCH'])
-    return str(len(positional_data['ndm']['oem']['body']['segment']['data']['stateVector']))
+    return str(len(positional_data['ndm']
 
 @app.route('/countries', methods=['GET'])
 def all_countries():
