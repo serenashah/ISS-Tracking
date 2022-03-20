@@ -1,11 +1,13 @@
 from flask import Flask, request
 import json
 import xmltodict
+import logging
+import socket
+
+format_str = '%(levelname)s: %(message)s'
+logging.basicConfig(level=logging.DEBUG, format = format_str)
 
 app = Flask(__name__)
-
-sighting_data = {}
-positional_data = {}
 
 @app.route('/download_data', methods=['POST'])
 def download_data():
@@ -18,10 +20,12 @@ def download_data():
     
     with open('ISS.OEM_J2K_EPH.xml', 'r') as f:
         positional_data = xmltodict.parse(f.read())
-       
+
     return 'Data has been loaded.\n'
 
 download_data()
+logging.debug((f'The type of positional_data is {type(positional_data)}')
+logging.debug(f'The type of sighting_data is {type(sighting_data)}')
 
 @app.route('/how_to_use', methods=['GET'])
 def how_to_use():
@@ -39,7 +43,7 @@ def epoch_info():
     return (json.dumps(epoch_dict, indent=1) + '\n')
 
 @app.route('/epochs/<epoch>', methods=['GET'])
-def specific_epoch(epoch: str) -> str:
+def specific_epoch(epoch: int) -> str:
     epoch_info = positional_data['ndm']['oem']['body']['segment']['data']['stateVector'][int(epoch)-1]
     return (json.dumps(epoch_info, indent=1) + '\n')
 
@@ -111,10 +115,6 @@ def specific_city(country: str, region: str, city: str) -> str:
             city_info_list.append(x)
     city_info[f'{city} Info'] = city_info_list
     return (json.dumps(city_info,indent=1) + '\n')
-
-@app.route('/load', methods=['POST'])
-def load_data():
-    return 0
 
 if __name__ == '__main__':
     app.run(debug=True, host = '0.0.0.0')
