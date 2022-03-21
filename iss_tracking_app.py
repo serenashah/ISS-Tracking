@@ -71,7 +71,7 @@ def how_to_use():
     return(usage_message)
 
 @app.route('/epochs', methods=['GET'])
-def epoch_info():
+def all_epochs():
     '''
     Reads the positional_data dictionary and creates a dictionary storing all epochs
     in the data.
