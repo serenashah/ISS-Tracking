@@ -46,8 +46,28 @@ def how_to_use():
     '''
     logging.debug('Inside the how_to_use route')
 
-    usage_message = 'ISS Tracking App Usage\n'
-    #finish later
+    usage_message = 'ISS Tracking App Usage\n\n'\
+        + 'This application queries and returns information about the ISS.\n\n' \
+        + '**You must load two data sets to query information. \n/download_data:\n'\
+        + '    Load the two data sets to begin with POST.***\n\n'\
+        + 'Routes for positional data information (with GET):\n'\
+        + '/epochs:\n'\
+        +'     returns all epochs, identified by number\n'\
+        + '/epochs/<epoch_number>:\n'\
+        + '    using the number ID, returns info about specific epoch\n\n'\
+        + 'Routes for sighting data information (with GET):\n'\
+        + '/countries: \n'\
+        + '    returns list of countries with sightings\n'\
+        + "/countries/<specific_country>:\n" \
+        + "    returns all info about country's sightings, given a country\n"\
+        + "/countries/<specific_country/regions>: \n"\
+        + "    using country name, returns list of regions with sightings\n"\
+        + "/countries/<specific_country>/regions/<specific_region>:\n"\
+        + "    returns all info about region's sightings, given a region and its country\n"\
+        + "/countries/<specific_country>/regions/<specific_region>/cities:\n"\
+        + "    returns a list of cities with sightings, given its country and region\n"\
+        + "/countries/<specific_country>/regions/<specific_region>/cities/<specific_city>: \n"\
+        + "    returns all info about a city's sightings, given its country and region\n"
     return(usage_message)
 
 @app.route('/epochs', methods=['GET'])
