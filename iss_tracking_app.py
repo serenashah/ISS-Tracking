@@ -12,10 +12,10 @@ app = Flask(__name__)
 @app.route('/download_data', methods=['POST'])
 def download_data():
     '''
-    Opens and parses two sets of xml data files and loads them into two dictionaries that can be used for all subsequent routes.
+    Opens and parses two sets of xml data files and loads them into two dictionaries 
+    that can be used for all subsequent routes.
 
     Args: none
-
     Returns: 
         A string to the client indicating that data has been downloaded.
     '''    
@@ -41,11 +41,11 @@ def how_to_use():
     Outputs a message informing the client of the application usage.
 
     Args: none
-
     Returns:
         A string message describing application usage.
     '''
     logging.debug('Inside the how_to_use route')
+
     usage_message = 'ISS Tracking App Usage\n'
     #finish later
     return(usage_message)
@@ -53,12 +53,13 @@ def how_to_use():
 @app.route('/epochs', methods=['GET'])
 def epoch_info():
     '''
-    Reads the positional_data dictionary and creates a dictionary storing all epochs in the data.
+    Reads the positional_data dictionary and creates a dictionary storing all epochs
+    in the data.
     
     Args: none
-
     Returns:
-        A dictionary-formatted json string with keys numerating the epochs and values of its corresponding time.
+        A dictionary-formatted json string with keys numerating the epochs and values 
+        of its corresponding time.
     '''
     logging.debug('Inside the epoch_info route')
     
@@ -73,49 +74,55 @@ def epoch_info():
 @app.route('/epochs/<epoch>', methods=['GET'])
 def specific_epoch(epoch: int) -> str:
     '''
-    Given a specific epoch, identified by its integer numberic, outputs all of the given
-    data about the ISS at that epoch.
+    Given a specific epoch, identified by its integer numberic, outputs all of the 
+    given data about the ISS at that epoch.
 
     Args: 
         epoch (int): epoch sighting identification number
-    
     Returns:
-        A dictionary-formatted json string of information about the ISS at the given epoch.
+        A dictionary-formatted json string of information about the ISS at the given 
+        epoch.
     '''
     logging.debug('Inside the specific_epoch route')
-    epoch_info = positional_data['ndm']['oem']['body']['segment']['data']['stateVector'][int(epoch)-1]
+
+    epoch_info = positional_data['ndm']['oem']['body']['segment']['data']['stateVector']\
+        [int(epoch)-1]
+    
     return (json.dumps(epoch_info, indent=1) + '\n')
 
 @app.route('/countries', methods=['GET'])
 def all_countries():
     '''
-    Reads the sighting_data dictionary and creates a dictionary storing all countries in the data.
+    Reads the sighting_data dictionary and creates a dictionary storing all countries 
+    in the data.
 
     Args: none
-
     Returns:
-        A dictionary-formatted json string with keys numerating the countries and values of the different countries in the dict.
+        A dictionary-formatted json string with keys numerating the countries and 
+        values of the different countries in the dict.
     '''
     logging.debug('Inside the all_countries route')
+
     countries_dict = {}
     number = 0
     for x in sighting_data['visible_passes']['visible_pass']:
         if x['country'] not in countries_dict.values():
             number += 1
             countries_dict[f'Country {number}'] = x['country']
+
     return (json.dumps(countries_dict, indent=1) + '\n')
 
 @app.route('/countries/<country>', methods=['GET'])
 def specific_country(country: str) -> str:
     '''
-    Given a specific country outputs all information about the country in the sighting_data.
+    Given a specific country outputs all information about the country in the 
+    sighting_data.
 
     Args:
         country (str): name of the country
-
     Returns:
         A dict-of-list-of-dicts-formatted json string of all the sighting information
-    for the given country.
+        for the given country.
     '''
     logging.debug('Inside the specific_country route')
     country_info = {}
@@ -127,22 +134,23 @@ def specific_country(country: str) -> str:
 
     if len(country_info_list) == 0:
         logging.error('No country with this data.')
-        return 'There is no data for this input. Check the usage of this application with curl:localhost:5028/how_to_use.\n'
-    
-    return (json.dumps(country_info,indent=1) + '\n')
+    else:
+        return (json.dumps(country_info,indent=1) + '\n')
 
 @app.route('/countries/<country>/regions', methods=['GET'])
 def all_regions(country: str) -> str:
     '''
-    Reads the sighting_data dictionary and creates a dictionary storing all regions in the data given its country.
+    Reads the sighting_data dictionary and creates a dictionary storing all regions 
+    in the data given its country.
 
     Args: 
         country (str): name of the country
-
     Returns:
-        A dictionary-formatted json string with keys numerating the regions and values of the different regions in the dict.
+        A dictionary-formatted json string with keys numerating the regions and 
+        values of the different regions in the dict.
     '''
     logging.debug('Inside the all_regions route')
+
     regions_dict = {}
     number = 0
     country_info = json.loads(specific_country(country))
@@ -154,42 +162,42 @@ def all_regions(country: str) -> str:
 
 @app.route('/countries/<country>/regions/<region>', methods=['GET'])
 def specific_region(country: str, region: str) -> str:
-     '''
-    Given a specific region of a specific country outputs all information about the city 
-     in the sighting_data.
+    '''
+    Given a specific region of a specific country outputs all information about the 
+    city in the sighting_data.
 
     Args:
         country (str): name of the country
         region (str): name of the region
-     
     Returns:
         A dict-of-list-of-dicts-formatted json string of all the sighting information
-    for the given region. 
-    '''
+        for the given region. 
+    ''' 
     logging.debug('Inside the specific_region route')
+    
     region_info  = {}
     country_info = json.loads(specific_country(country))
     region_info_list = []
     for x in country_info[f'{country} Info']:
         if (region == x['region']):
-            region_info_list.append(x)
+           region_info_list.append(x)
     region_info[f'{region} Info'] = region_info_list
 
     if len(region_info_list) == 0:
         logging.error('No region with this data.')
-    
-    return (json.dumps(region_info,indent=1) + '\n')
+    else:
+        return (json.dumps(region_info,indent=1) + '\n')
 
 @app.route('/countries/<country>/regions/<region>/cities', methods=['GET'])
 def all_cities(country: str, region: str) -> str:
     '''
-    Reads the sighting_data dictionary and creates a dictionary storing all cities in the data for 
-    a given country and region.
+    Reads the sighting_data dictionary and creates a dictionary storing all cities 
+    in the data for a given country and region.
 
     Args: none
-
     Returns:
-        A dictionary-formatted json string with keys numerating the regions and values of the different regions in the dict.
+        A dictionary-formatted json string with keys numerating the regions and 
+        values of the different regions in the dict.
     '''
     logging.debug('Inside the all_cities route')
 
@@ -206,18 +214,19 @@ def all_cities(country: str, region: str) -> str:
 @app.route('/countries/<country>/regions/<region>/cities/<city>', methods=['GE\
 T'])
 def specific_city(country: str, region: str, city: str) -> str:
-     '''
-    Given a specific city in a given country and region, outputs all information about the city in the sighting_data.
+    '''
+    Given a specific city in a given country and region, outputs all information 
+    about the city in the sighting_data.
 
     Args:
         country (str): name of the country
         region (str): name of the region
-
     Returns:
         A dict-of-list-of-dicts-formatted json string of all the sighting information
-    for the given city.
+        for the given city.
     '''
     logging.debug('Inside the specific_city route')
+
     city_info  = {}
     region_info = json.loads(specific_region(country, region))
     city_info_list = []
@@ -228,9 +237,8 @@ def specific_city(country: str, region: str, city: str) -> str:
 
     if len(city_info_list) == 0:
         logging.error('No city with this data.')
-        return 'There is no data for this input. Check the usage of this application with curl:localhost:5028/how_to_use.\n'
-    
-    return (json.dumps(city_info,indent=1) + '\n')
+    else:
+        return (json.dumps(city_info,indent=1) + '\n')
 
 if __name__ == '__main__':
     app.run(debug=True, host = '0.0.0.0')
