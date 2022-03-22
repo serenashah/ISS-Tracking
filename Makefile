@@ -9,7 +9,7 @@ ps:
 	docker ps -a | grep ${NAME}
 
 build:
-	docker build -t ${NAME}/flask-iss:latest .
+	docker build -t ${NAME}/flask-iss-app:latest .
 
 run:
 	docker run --name "serenashah-iss-app" -d -p 5028:5000 --rm -v \${PWD}:/iss_app ${NAME}/flask-iss-app:latest

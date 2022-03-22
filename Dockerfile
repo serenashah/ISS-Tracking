@@ -4,8 +4,8 @@ RUN yum update -y && \
     yum install -y python3
 
 RUN pip3 install pytest==7.0.0
-RUN pip3 install xmltodict
-RUN pip3 install Flask==2.0.3
+RUN pip3 install --user xmltodict
+RUN pip3 install --user Flask==2.0.3
 
 RUN mkdir /iss_app
 WORKDIR /iss_app
