@@ -60,6 +60,22 @@ Once you've finished using the application, stop your container with:
 You may also pull a copy of an existing pre-containerized application from Docker Hub with the following command:
 ```bash
 [user@f5p~]$ docker pull serenashah/flask-iss-app:latest
+latest: Pulling from serenashah/flask-iss-app
 ```
 ### App 
+Once your containerized server is running, you may interact with the app using ```curl```. The web application, ```iss_tracking_app```, is a Python script with several routes for various types of information about the ISS.
+#### App Routes
+The general structure for the commmand to interact with the app is:
+```bash
+[user@f5p~]$ curl localhost:5028/<url_route>
+```
+The following routes have a ```GET``` endpoint:
+- ```/epochs```: returns all epochs, identified by number
+- ```/epochs/<epoch_number>```: using the number ID, returns information about  the ISS's position and velocity at a specific epoch
+- ```/countries```: returns list of countries with sightings
+- ```/countries/<specific_country>```: returns all info about country's sightings, given a country
+- ```/countries/<specific_country/regions>```: using country name, returns list of regions with sightings
+- ```/countries/<specific_country>/regions/<specific_region>```: returns all info about region's sightings, given a region and its country
+- ```/countries/<specific_country>/regions/<specific_region>/cities```: returns a list of cities with sightings, given its country and region
+- ```/countries/<specific_country>/regions/<specific_region>/cities/<specific_city>``` : returns all info about a city's sightings, given its country and region
 ### Test Suite 
