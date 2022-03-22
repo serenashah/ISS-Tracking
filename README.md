@@ -9,12 +9,22 @@ This project offers users the ability to sift through abundant amounts of data  
 - ```ISS.OEM_J2K_EPH.xml```: an XML file with positional data, including abundant informtion about the ISS's position and velocity at a given epoch
 - ```XMLsightingData_citiesUSA07.xml```: an XML file with sighting data, including abundant information about the ISS's local sightings in the United States
 
-## Datasets
-The XML files mentioned above are datasets provided by NASA's Johnson Space Center, updated February 13, 2022. For the application to access these files, download them into a directory with the files included in this repository. 
-You can download both the positional data and sighting data at this [link](https://data.nasa.gov/Space-Science/ISS_COORDS_2022-02-13/r6u8-bhhq) under the names **Public Distribution File** and **XMLsightingData_citiesUSA07**, respectively.
-You can also download them into your directory in terminal with the ```wget```:
+## Installation
+Clone this repository onto your desktop with 
+```bash
+[user@f5p~]$ git clone https://github.com/serenashah/iss-tracking.git
+```
+### Data Sets
+The XML files mentioned above are datasets provided by NASA's Johnson Space Center, updated February 13, 2022. For the application to access these files, download them into your local repository with the files included in this repository.  
+
+You can download both the positional data and sighting data at this [link](https://data.nasa.gov/Space-Science/ISS_COORDS_2022-02-13/r6u8-bhhq) under the names '**Public Distribution File**' and '**XMLsightingData_citiesUSA07**', respectively.   
+You can also download them into your directory in terminal with ```wget```:
 ```bash
 [user@f5p~]$ wget https://nasa-public-data.s3.amazonaws.com/iss-coords/2022-02-13/ISS_OEM/ISS.OEM_J2K_EPH.xml 
-ISS.OEM_J2K_EPH.xml  100%[======================>]   2.83M  1.03MB/s    in 2.8s 
 [user@f5p~]$ wget https://nasa-public-data.s3.amazonaws.com/iss-coords/2022-02-13/ISS_sightings/XMLsightingData_citiesUSA07.xml 
-XMLsightingData_citi 100%[======================>]   1.80M  1.04MB/s    in 1.7s
+```
+## Usage 
+### Docker 
+The ```Dockerfile``` containerizes the Flask web server creating a microservice to interact with 
+### App 
+### Test Suite 
