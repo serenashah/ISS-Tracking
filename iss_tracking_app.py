@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import Flask, request
 import json
 import xmltodict
@@ -27,10 +28,6 @@ def download_data():
     
     with open('ISS.OEM_J2K_EPH.xml', 'r') as f:
         positional_data = xmltodict.parse(f.read())
-
-
-    logging.debug(f'The type of positional_data is {type(positional_data)}')
-    logging.debug(f'The type of sighting_data is {type(sighting_data)}')
 
     return 'Data has been loaded.\n'
 

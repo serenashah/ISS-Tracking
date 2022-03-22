@@ -14,5 +14,5 @@ COPY XMLsightingData_citiesUSA07.xml /iss_app
 COPY ISS.OEM_J2K_EPH.xml /iss_app
 COPY test_iss_app.py /iss_app
 
-ENTRYPOINT ["python"]
+ENTRYPOINT ["python3"]
 CMD ["iss_tracking_app.py"]
