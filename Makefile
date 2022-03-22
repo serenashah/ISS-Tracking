@@ -1,6 +1,6 @@
 NAME ?= serenashah
 
-all: build run push
+all: build run
 
 images:
 	docker images | grep ${NAME}
