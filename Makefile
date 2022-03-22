@@ -12,7 +12,4 @@ build:
 	docker build -t ${NAME}/flask-iss-app:latest .
 
 run:
-	docker run --name "serenashah-iss-app" -d -p 5028:5000 --rm -v \:/iss_app ${NAME}/flask-iss-app:latest
-
-push:
-	docker push ${NAME}/flask-iss-app:latest
+	docker run --name "user-iss-app" -d -p 5028:5000 --rm -v \:/iss_app ${NAME}/flask-iss-app:latest
