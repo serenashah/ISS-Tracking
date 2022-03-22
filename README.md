@@ -25,7 +25,9 @@ You can also download them into your directory in terminal with ```wget```:
 ```
 ## Usage 
 ### Docker 
-The ```Dockerfile``` containerizes the Flask web server, creating a microservice with which you can interact and containing all the dependencies and environment requirements needed to utilize the application. The included ```Makefile``` and running the Docker image in the background can be done easily with ```make```:
+The ```Dockerfile``` containerizes the Flask web server, creating a microservice with which you can interact and containing all the dependencies and environment requirements needed to utilize the application. 
+#### Using the Makefile
+The included ```Makefile``` and running the Docker image in the background can be done easily with ```make```:
 ```bash
 [user@f5p~]$ make all
 docker build -t f5p/flask-iss-app:latest .
@@ -33,6 +35,7 @@ docker build -t f5p/flask-iss-app:latest .
 ...
 541be2ee1a378ac6e62f5336c49f99651e5028d6a15441c4a9cf1867405b11c3
 ```
+#### Building and running manually
 Alternatively, you can manually build and run the containerized app with:
 ```bash
 [user@f5p~]$ docker build -t serenashah/flask-iss-app:latest .
@@ -40,6 +43,23 @@ docker build -t f5p/flask-iss-app:latest .
 [+] Building 8.1s (16/16) FINISHED
 [user@f5p~]$ docker run --name "<container-name>" -d -p 5028:5000 --rm -v serenashah/flask-iss-app:latest
 541be2ee1a378ac6e62f5336c49f99651e5028d6a15441c4a9cf1867405b11c3
+```
+#### Checking status and stopping
+To see if your container is up and running, check that the status of your container is ```Up```.
+```bash
+[user@f5p~]$ docker ps -a
+CONTAINER ID   IMAGE    ..................  CREATED         STATUS     
+541be2ee1a37   f5p/flask-iss-app:latest     4 minutes ago   Up 4 minutes       
+```
+Once you've finished using the application, stop your container with:
+```bash
+[user@f5p~]$ docker stop <CONTAINER ID>
+<CONTAINER ID>
+```
+#### Pulling a pre-containerized copy
+You may also pull a copy of an existing pre-containerized application from Docker Hub with the following command:
+```bash
+[user@f5p~]$ docker pull serenashah/flask-iss-app:latest
 ```
 ### App 
 ### Test Suite 
