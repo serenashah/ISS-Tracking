@@ -27,7 +27,7 @@ You can also download them into your directory in terminal with ```wget```:
 ### Docker 
 The ```Dockerfile``` containerizes the Flask web server, creating a microservice with which you can interact and containing all the dependencies and environment requirements needed to utilize the application. 
 #### Using the Makefile
-The included ```Makefile``` and running the Docker image in the background can be done easily with ```make```:
+The included ```Makefile``` automatically builds and runs the Docker image in the background, and can be executed easily with ```make```:
 ```bash
 [user@f5p~]$ make all
 docker build -t f5p/flask-iss-app:latest .
