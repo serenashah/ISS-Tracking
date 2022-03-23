@@ -89,7 +89,11 @@ Information routes:
 It is important to note that if query information about an epoch, country, region, or city that is not listed in the list routes, the application will return a ```TypeError```; be sure to check the list of valid epochs, countries, regions, and cities before query specific times/places.
 #### Interpreting results
 All urls ending in a non-customizable/non-specific route will return lists of epochs, countries, regions, or cities with further data in the file. 
-All urls ending in a customizable/specific route will return more abundant data on the specific queried item. The functions which use positional data return information about the epochs including velocity and position. The functions which use sighting data return information about various sighting instances such as location, date and time of sighting, duration, maximum elevation of the ISS.
+All urls ending in a customizable/specific route will return more abundant data on the specific queried item. 
+
+The functions which use positional data return information about the epochs, with position coordinates denoted by "X", "Y", and "Z" in km and velocity components denoted by "X_DOT", "Y_DOT" and "Z_DOT" in km/s. 
+
+The functions which use sighting data return information about various sighting instances such as location, date and time of sighting, duration, maximum elevation of the ISS.
 
 #### Test Suite 
 The test suite, ```test_iss_app.py``` has various tests which verify the performance of the functions in the application using ```pytest```. Because the tests are unit tests rather than functional tests, running the test will not output a test pass or failure. However, you can run the test suite with:
